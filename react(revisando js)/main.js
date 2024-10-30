@@ -54,15 +54,15 @@ function editItem(event) {
     }
 }
 
-// if (btnAdd) {
-//     btnAdd.addEventListener('click', function() {
-//         const novaMarca = prompt("Digite o nome da nova marca:");
-//         if (novaMarca) {
-//             marcas.push(novaMarca); 
-//             showList(); 
-//         }
-//     });
-// }
+function addItem(event){
+    const novaMarca = prompt("Digite o nome da nova marca:");
+    if (novaMarca) {
+        marcas.push(novaMarca); 
+        showList(); 
+    }
+}
+
+btnAdd.addEventListener('click', addItem);
 
 
 // Função para exibir a lista
@@ -70,9 +70,9 @@ btnLista.addEventListener('click', function () {
 
     containerList.style.display = 'block';
     page.style.display = 'none';
-    
-    containerBtns.innerHTML += `<button id="btn-add" class="btn btn-primary">Adicionar</button>`;
 
     showList();
+
+    
 
 })
