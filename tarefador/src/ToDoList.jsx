@@ -16,6 +16,12 @@ function ToDoList() {
         document.getElementById('input-entrada').focus();
     }
 
+    function clicou (index){
+        const listaAux = [...lista];
+        listaAux[index].isCompleted = !listaAux[index].isCompleted;
+        setLista(listaAux)
+    }
+
     return (
         <>
             <h1>Meu tarefador</h1>
@@ -26,29 +32,28 @@ function ToDoList() {
                 <button className="add">add</button>
             </form>
             <div className="listaTarefas">
-                <div>
+                <div style={{ textAlign: 'center' }}>
                     {
                         lista.length < 1
                             ?
-                            "Sem tarefas pendentes"
+                            <p style={{ color: 'white'}}>Sem tarefas pendentes. Comece agora</p>
                             :
 
                             lista.map((item, index) => (
-                                <div className="item">
-                                    <span>{item.text}</span>
-                                    <button className="del">Deletar</button>
+                                <div 
+                                key={index}
+                                className={item.isCompleted ? "item completo" : "item"}>
+                                    <span onClick={()=>{clicou(index)}}>{item.text}</span>
+                                    <button className="del" >Deletar</button>
                                 </div>
                             ))
 
                     }
-                </div>
 
-                <div className="item completo">
-                    <span>Faça isso</span>
-                    <button className="del">Deletar</button>
+                    <button className="delAll">Apagar tudo</button>
                 </div>
+                
             </div>
-            <button className="delAll">Apagar tudo</button>
         </>
     )
 }
