@@ -111,6 +111,7 @@ button.del{
     padding: 15px;
     cursor: pointer;
     color: #4d506e;
+    
 }
 
 button.del:hover{
@@ -130,6 +131,7 @@ button.delAll{
     border-radius: 5px;
     cursor: pointer;
     width: fit-content;
+    margin-top: 20px;
 }
 
 button.delAll:hover{

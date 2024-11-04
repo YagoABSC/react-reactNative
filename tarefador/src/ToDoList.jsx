@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import './ToDoList.css';
 
 function ToDoList() {
 
-    const [lista, setLista] = useState([]);
+    const listaStorage = localStorage.getItem('Lista');
+
+    const [lista, setLista] = useState(listaStorage ? JSON.parse(listaStorage) : []);
     const [novoItem, setNovoItem] = useState("");
+
+    useEffect(() => {
+        localStorage.setItem('Lista', JSON.stringify(lista));
+    },[lista]);
 
     function addItem(form) {
         form.preventDefault();
@@ -20,6 +26,16 @@ function ToDoList() {
         const listaAux = [...lista];
         listaAux[index].isCompleted = !listaAux[index].isCompleted;
         setLista(listaAux)
+    }
+
+    function deleta (index){
+        const listaAux = [...lista];
+        listaAux.splice(index, 1);
+        setLista(listaAux);
+    }
+
+    function deletaTudo(){
+        setLista([]);
     }
 
     return (
@@ -44,13 +60,16 @@ function ToDoList() {
                                 key={index}
                                 className={item.isCompleted ? "item completo" : "item"}>
                                     <span onClick={()=>{clicou(index)}}>{item.text}</span>
-                                    <button className="del" >Deletar</button>
+                                    <button onClick={()=>{deleta(index)}} className="del" >Deletar</button>
                                 </div>
                             ))
 
                     }
 
-                    <button className="delAll">Apagar tudo</button>
+                    {
+                        lista.length > 1 &&
+                        <button className="delAll" onClick={()=> {deletaTudo()}}>Apagar tudo</button>
+                    }
                 </div>
                 
             </div>
